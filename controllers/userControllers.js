@@ -32,7 +32,8 @@ const registerUser = asyncHandler(async (req, res) => {
   const userExists = await User.findOne({ email });
 
   if (userExists) {
-    res.status(400).json({ message: 'user already exist' });
+    res.status(400);
+    throw new Error('User already exist');
   }
 
   // create a new user
@@ -51,7 +52,8 @@ const registerUser = asyncHandler(async (req, res) => {
       email: user.email,
     });
   } else {
-    res.status(400).json({ message: 'Invalid user data' });
+    res.status(400);
+    throw new Error('Invalid user data');
   }
 });
 
@@ -71,8 +73,28 @@ const logoutUser = asyncHandler(async (req, res) => {
 // @desc    Update user
 // routes   PUT /api/users/update
 // @access  Private
-const updateUser = (req, res) => {
-  res.status(200).json({ message: 'Update user' });
-};
+const updateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.location = req.body.location || user.location;
+
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
 
 export { authUser, registerUser, logoutUser, updateUser };

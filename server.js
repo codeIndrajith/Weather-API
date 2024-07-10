@@ -5,6 +5,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 import userRoutes from './routes/userRoutes.js';
 import connectDB from './config/database.js';
+import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 
 const app = express();
 
@@ -22,6 +23,9 @@ app.use('/api/users', userRoutes);
 app.use('/', (req, res) => {
   res.send('Server is ready');
 });
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is running to PORT ${PORT}`);
