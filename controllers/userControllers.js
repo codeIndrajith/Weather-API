@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 import generateToken from '../utils/generateToken.js';
+import { fetchingWeatherData } from '../utils/weatherDetails.js';
 
 // @desc    Auth user/set token
 // routes   POST /api/users/auth
@@ -97,4 +98,19 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, registerUser, logoutUser, updateUser };
+// @desc    Weather fetching
+// routes   GET /api/users/weather
+// @access  Private
+const getWeatherData = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    const weatherData = await fetchingWeatherData(user.location);
+    res.status(200).json(weatherData);
+  } else {
+    res.status(404);
+    throw new Error('User cannot find. Then weather data have not');
+  }
+});
+
+export { authUser, registerUser, logoutUser, updateUser, getWeatherData };
