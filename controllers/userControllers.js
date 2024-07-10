@@ -106,7 +106,18 @@ const getWeatherData = asyncHandler(async (req, res) => {
 
   if (user) {
     const weatherData = await fetchingWeatherData(user.location);
-    res.status(200).json(weatherData);
+    const weatherDetails = {
+      temperature: weatherData.main.temp,
+      weatherDescription: weatherData.weather[0].description,
+      windSpeed: weatherData.wind.speed,
+    };
+
+    user.weather = weatherDetails;
+
+    await user.save();
+    res.status(200).json({
+      weather: user.weather,
+    });
   } else {
     res.status(404);
     throw new Error('User cannot find. Then weather data have not');
