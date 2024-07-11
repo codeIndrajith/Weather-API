@@ -3,6 +3,7 @@ const router = express.Router();
 import {
   authUser,
   getWeatherData,
+  getWeatherDataByDate,
   logoutUser,
   registerUser,
   updateUser,
@@ -14,5 +15,6 @@ router.post('/auth', authUser);
 router.post('/logout', logoutUser);
 router.post('/update', protect, updateUser);
 router.get('/weather', protect, getWeatherData);
+router.get('/weather/:date', protect, getWeatherDataByDate);
 
 export default router;

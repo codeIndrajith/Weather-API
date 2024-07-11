@@ -1,7 +1,10 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 import generateToken from '../utils/generateToken.js';
-import { fetchingWeatherData } from '../utils/weatherDetails.js';
+import {
+  fetchingWeatherData,
+  fetchingWeatherDataByDate,
+} from '../utils/weatherDetails.js';
 
 // @desc    Auth user/set token
 // routes   POST /api/users/auth
@@ -124,4 +127,28 @@ const getWeatherData = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, registerUser, logoutUser, updateUser, getWeatherData };
+// @desc    Weather fetching given day
+// routes   GET /api/users/weather/:date
+// @access  Private
+const getWeatherDataByDate = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+  const location = user.location;
+  const date = req.params.date; // We assume the date coming to the req params
+
+  if (user) {
+    const weatherDateToDate = await fetchingWeatherDataByDate(location, date);
+    res.status(200).json({ weatherDateToDate });
+  } else {
+    res.status(404);
+    throw new Error('User not found. So cannot find forecast weather data');
+  }
+});
+
+export {
+  authUser,
+  registerUser,
+  logoutUser,
+  updateUser,
+  getWeatherData,
+  getWeatherDataByDate,
+};
