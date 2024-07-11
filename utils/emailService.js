@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-const sendEmailToUser = async (location, email, weatherData) => {
+const sendEmailToUser = async (location, email, weatherData, weatherTextAI) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     user: 'smtp.gmail.com',
@@ -26,10 +26,12 @@ const sendEmailToUser = async (location, email, weatherData) => {
         <thead>
             <td>Weather</td>
             <td>Wind Speed</td>
+            <td>Weather Details AI</td>
         </thead>
         <tbody>
             <td>${weatherData.weather[0].description}</td>
             <td>${weatherData.wind.speed}</td>
+            <td>${weatherTextAI}</td>
         </tbody>
     </table>
   `

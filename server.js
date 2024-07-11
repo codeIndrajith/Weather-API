@@ -7,6 +7,7 @@ import userRoutes from './routes/userRoutes.js';
 import connectDB from './config/database.js';
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 import scheduleEmails from './emailSender/sendWeatherToEmail.js';
+import geminiAiFunction from './utils/aiService.js';
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // send email to user
 scheduleEmails();
+
+geminiAiFunction();
 
 // cookie parser
 app.use(cookieParser());

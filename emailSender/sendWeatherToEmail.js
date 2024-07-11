@@ -3,6 +3,7 @@ import { fetchingWeatherData } from '../utils/weatherDetails.js';
 import User from '../models/userModel.js';
 import sendEmailToUser from '../utils/emailService.js';
 import asyncHandler from 'express-async-handler';
+import geminiAiFunction from '../utils/aiService.js';
 
 // schedule a cron job send to emails in every 3 hours for all users
 // 0 */3 * * * describe 3 hours
@@ -15,7 +16,13 @@ const scheduleEmails = () => {
       if (users) {
         for (const user of users) {
           const weatherData = await fetchingWeatherData(user.location);
-          sendEmailToUser(user.location, user.email, weatherData);
+          const weatherTextAI = await geminiAiFunction(weatherData.main.temp);
+          sendEmailToUser(
+            user.location,
+            user.email,
+            weatherData,
+            weatherTextAI
+          );
           console.log(`${user.email} send to weather report`);
         }
       } else {
