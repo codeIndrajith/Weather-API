@@ -32,6 +32,7 @@ const authUser = asyncHandler(async (req, res) => {
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, location } = req.body;
+  const validateString = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
   const userExists = await User.findOne({ email });
 
@@ -40,24 +41,31 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error('User already exist');
   }
 
-  // create a new user
-  const user = await User.create({
-    name,
-    email,
-    password,
-    location,
-  });
-
-  if (user) {
-    generateToken(res, user._id); // generate the token and its store the cookie
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-    });
-  } else {
+  // validate a email
+  const validated = validateString.test(email);
+  if (!validated) {
     res.status(400);
-    throw new Error('Invalid user data');
+    throw new Error('Invalid Email....');
+  } else {
+    // create a new user
+    const user = await User.create({
+      name,
+      email,
+      password,
+      location,
+    });
+
+    if (user) {
+      generateToken(res, user._id); // generate the token and its store the cookie
+      res.status(201).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      });
+    } else {
+      res.status(400);
+      throw new Error('Invalid user data');
+    }
   }
 });
 
