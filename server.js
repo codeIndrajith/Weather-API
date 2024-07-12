@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // send email to user
-scheduleEmails();
+// scheduleEmails();
 
 geminiAiFunction();
 
