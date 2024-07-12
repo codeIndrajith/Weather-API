@@ -1,13 +1,13 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import cookieParser from 'cookie-parser';
+const express = require('express');
+const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 dotenv.config();
 const PORT = process.env.PORT || 5000;
-import userRoutes from './routes/userRoutes.js';
-import connectDB from './config/database.js';
-import { errorHandler, notFound } from './middleware/errorMiddleware.js';
-import scheduleEmails from './emailSender/sendWeatherToEmail.js';
-import geminiAiFunction from './utils/aiService.js';
+const userRoutes = require('./routes/userRoutes.js');
+const connectDB = require('./config/database.js');
+const { errorHandler, notFound } = require('./middleware/errorMiddleware.js');
+const scheduleEmails = require('./emailSender/sendWeatherToEmail.js');
+const geminiAiFunction = require('./utils/aiService.js');
 
 const app = express();
 

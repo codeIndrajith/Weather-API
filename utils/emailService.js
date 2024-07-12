@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+const nodemailer = require('nodemailer');
 
 const sendEmailToUser = async (location, email, weatherData, weatherTextAI) => {
   const transporter = nodemailer.createTransport({
@@ -51,4 +51,4 @@ const sendEmailToUser = async (location, email, weatherData, weatherTextAI) => {
   }
 };
 
-export default sendEmailToUser;
+module.exports = sendEmailToUser;

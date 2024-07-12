@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 // Access your API key as an environment variable (see "Set up your API key" above)
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -15,6 +15,6 @@ const geminiAiFunction = async (temperature) => {
   return text;
 };
 
-export default geminiAiFunction;
+module.exports = geminiAiFunction;
 
 // All the detail have gemini ai documentation

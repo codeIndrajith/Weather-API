@@ -1,14 +1,14 @@
-import express from 'express';
+const express = require('express');
 const router = express.Router();
-import {
+const {
   authUser,
   getWeatherData,
   getWeatherDataByDate,
   logoutUser,
   registerUser,
   updateUser,
-} from '../controllers/userControllers.js';
-import { protect } from '../middleware/authMiddlware.js';
+} = require('../controllers/userControllers.js');
+const { protect } = require('../middleware/authMiddlware.js');
 
 router.post('/', registerUser);
 router.post('/auth', authUser);
@@ -17,4 +17,4 @@ router.post('/update', protect, updateUser);
 router.get('/weather', protect, getWeatherData);
 router.get('/weather/:date', protect, getWeatherDataByDate);
 
-export default router;
+module.exports = router;

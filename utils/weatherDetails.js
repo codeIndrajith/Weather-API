@@ -1,7 +1,7 @@
-import axios from 'axios';
-import dotenv from 'dotenv';
+const axios = require('axios');
+const dotenv = require('dotenv');
 dotenv.config();
-import asyncHandler from 'express-async-handler';
+const asyncHandler = require('express-async-handler');
 
 // Fetching the weather data by location
 
@@ -59,4 +59,4 @@ const fetchingWeatherDataByDate = asyncHandler(async (location, date) => {
   }
 });
 
-export { fetchingWeatherData, fetchingWeatherDataByDate };
+module.exports = { fetchingWeatherData, fetchingWeatherDataByDate };

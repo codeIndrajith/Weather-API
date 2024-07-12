@@ -1,9 +1,9 @@
-import cron from 'node-cron';
-import { fetchingWeatherData } from '../utils/weatherDetails.js';
-import User from '../models/userModel.js';
-import sendEmailToUser from '../utils/emailService.js';
-import asyncHandler from 'express-async-handler';
-import geminiAiFunction from '../utils/aiService.js';
+const cron = require('node-cron');
+const { fetchingWeatherData } = require('../utils/weatherDetails.js');
+const User = require('../models/userModel.js');
+const sendEmailToUser = require('../utils/emailService.js');
+const asyncHandler = require('express-async-handler');
+const geminiAiFunction = require('../utils/aiService.js');
 
 // schedule a cron job send to emails in every 3 hours for all users
 // 0 */3 * * * describe 3 hours
@@ -32,4 +32,4 @@ const scheduleEmails = () => {
   );
 };
 
-export default scheduleEmails;
+module.exports = scheduleEmails;

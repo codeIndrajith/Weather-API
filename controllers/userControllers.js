@@ -1,10 +1,10 @@
-import asyncHandler from 'express-async-handler';
-import User from '../models/userModel.js';
-import generateToken from '../utils/generateToken.js';
-import {
+const asyncHandler = require('express-async-handler');
+const User = require('../models/userModel.js');
+const generateToken = require('../utils/generateToken.js');
+const {
   fetchingWeatherData,
   fetchingWeatherDataByDate,
-} from '../utils/weatherDetails.js';
+} = require('../utils/weatherDetails.js');
 
 // @desc    Auth user/set token
 // routes   POST /api/users/auth
@@ -152,7 +152,7 @@ const getWeatherDataByDate = asyncHandler(async (req, res) => {
   }
 });
 
-export {
+module.exports = {
   authUser,
   registerUser,
   logoutUser,
