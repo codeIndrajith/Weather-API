@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Node.js API that stores users’ emails and location, and automatically sends hourly weather reports every 3 hours.",
   "main": "index.js",
+  "engines": {
+    "node": "20.15.0"
+  },
   "scripts": {
     "start": "node server.js"
   },
