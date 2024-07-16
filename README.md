@@ -61,7 +61,7 @@ GEMINI_API_KEY=your_geminiai_api_key
 
 4. **AI-Generated Weather Descriptions**
     - Uses Gemini AI API to generate text descriptions of the weather.
-    - Before fetching weather data, sent a prompt a temperature to `Describe the weather using only three words for this temperature.${temperature}`
+    - Before sending email, sent a prompt a temperature to `Describe the weather using only three words for this temperature.${temperature}`
     - Its generate a text about weather and send email section after send the email to user.
     - Finally the AI-generated text is included in the email content and sent each users every 3 hours.
 
