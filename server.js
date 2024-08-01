@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 // send email to user
 // scheduleEmails();
 
-geminiAiFunction();
+// geminiAiFunction();
 
 // cookie parser
 app.use(cookieParser());
